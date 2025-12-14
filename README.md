@@ -47,6 +47,7 @@ Aplikasi web berbasis Firebase untuk membantu mahasiswa menemukan tempat makan, 
 
 ## 📁 Struktur Proyek
 
+```
 KAMPUSPOT/
 │
 ├── public/
