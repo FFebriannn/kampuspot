@@ -154,5 +154,6 @@ Pastikan folder publik diarahkan ke folder public/.
 Proyek ini menggunakan MIT License dan bebas digunakan untuk pembelajaran.
 
 ## 👨‍💻 Author
-KAMPUSPOT
-Dibuat sebagai proyek pembelajaran pengembangan web berbasis Firebase.
+- Mas'ud Riyan
+- Muhammad Arya Syahdeva
+- Muhammad Fery Febrian
