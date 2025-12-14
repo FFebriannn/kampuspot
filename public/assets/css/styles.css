@@ -1,0 +1,57 @@
+/* Smooth scroll untuk anchor */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Card hover halus, shadow ga kebesaran */
+.spot-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 1.25rem;
+}
+
+.spot-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+/* Category chip base style (dipakai bareng utility Tailwind) */
+.category-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid #e2e8f0; 
+  font-size: 0.75rem; 
+  background-color: #ffffff;
+  color: #475569; 
+  cursor: pointer;
+  transition: background-color 0.16s ease, color 0.16s ease,
+    border-color 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease;
+}
+
+.category-chip:hover {
+  border-color: #86efac; /* green-300 untuk kampuspot */
+  transform: translateY(-1px);
+}
+
+/* State aktif kategori */
+.category-chip--active {
+  background: #22c55e; /* kampuspot-500 */
+  color: #ffffff;
+  border-color: #22c55e;
+  box-shadow: 0 4px 6px -1px rgba(34, 197, 94, 0.1), 0 2px 4px -2px rgba(34, 197, 94, 0.1);
+}
+
+/* Ukuran ikon di chip */
+.category-chip__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+}
+
+/* Hide scrollbars on modal overlay scroll */
+body.modal-open {
+  overflow: hidden;
+}

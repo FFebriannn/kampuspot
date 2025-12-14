@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Panel - kampuspot</title>
+
+    <!-- Google Fonts: Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Montserrat", "Arial", "sans-serif"],
+            },
+            colors: {
+              kampuspot: {
+                50: "#F0FDF4",
+                100: "#DCFCE7",
+                500: "#22C55E",
+                600: "#16A34A",
+              },
+            },
+          },
+        },
+      };
+    </script>
+
+    <link rel="stylesheet" href="./assets/css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
+    />
+  </head>
+
+  <body class="font-sans bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+    <!-- Top bar -->
+    <header
+      class="sticky top-0 z-20 bg-white/90 backdrop-blur border-b border-slate-100"
+    >
+      <div
+        class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-3"
+      >
+        <a href="index.html" class="flex items-center gap-2">
+          <div class="h-10 w-10 rounded-2xl overflow-hidden">
+            <img
+              src="logo.png"
+              alt="Logo Kampuspot"
+              class="h-full w-full object-cover"
+            />
+          </div>
+          <div class="flex flex-col leading-tight">
+            <span class="font-semibold text-slate-900 text-base">
+              kampuspot Admin
+            </span>
+            <span class="text-[11px] text-slate-500">
+              Kelola spot sekitar kampus
+            </span>
+          </div>
+        </a>
+
+        <nav class="flex items-center gap-3 text-xs sm:text-sm">
+          <a href="index.html" class="text-slate-500 hover:text-slate-800">
+            Home
+          </a>
+          <a href="swipe.html" class="text-slate-500 hover:text-slate-800">
+            Swipe
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="flex-1">
+      <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+        <!-- Message global -->
+        <div
+          id="adminMessage"
+          class="hidden mb-4 rounded-2xl border px-3.5 py-2.5 text-xs sm:text-sm"
+        ></div>
+
+        <!-- LOGIN SECTION -->
+        <section
+          id="loginSection"
+          class="flex items-center justify-center py-10"
+        >
+          <div
+            class="w-full max-w-md bg-white rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/60 p-5 sm:p-6 space-y-4"
+          >
+            <div class="space-y-1.5">
+              <h1 class="text-lg sm:text-xl font-semibold text-slate-900">
+                Login Admin
+              </h1>
+              <p class="text-xs sm:text-sm text-slate-600">
+                Masuk menggunakan akun admin dengan email dan password yang
+                sudah terdaftar di Firebase Authentication.
+              </p>
+            </div>
+
+            <form id="loginForm" class="space-y-3">
+              <div class="space-y-1">
+                <label
+                  for="loginEmail"
+                  class="text-xs font-medium text-slate-700"
+                  >Email</label
+                >
+                <input
+                  id="loginEmail"
+                  type="email"
+                  required
+                  class="w-full rounded-2xl border border-slate-200 bg-slate-50/60 px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-kampuspot-500/70 focus:border-kampuspot-500"
+                  placeholder="admin@kampuspot.com"
+                />
+              </div>
+              <div class="space-y-1">
+                <label
+                  for="loginPassword"
+                  class="text-xs font-medium text-slate-700"
+                  >Password</label
+                >
+                <input
+                  id="loginPassword"
+                  type="password"
+                  required
+                  class="w-full rounded-2xl border border-slate-200 bg-slate-50/60 px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-kampuspot-500/70 focus:border-kampuspot-500"
+                  placeholder="••••••••"
+                />
+              </div>
+
+              <p id="loginError" class="hidden text-xs text-rose-500"></p>
+
+              <button
+                type="submit"
+                class="w-full inline-flex items-center justify-center gap-2 rounded-2xl bg-slate-900 text-white text-sm font-medium px-4 py-2.5 hover:bg-slate-800 transition shadow-sm"
+              >
+                Masuk Admin
+              </button>
+            </form>
+          </div>
+        </section>
+
+        <!-- ADMIN SECTION -->
+        <section id="adminSection" class="hidden space-y-6">
+          <!-- Header admin -->
+          <div
+            class="flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+          >
+            <div>
+              <p
+                class="text-xs font-medium text-slate-500 uppercase tracking-[0.12em]"
+              >
+                Panel Admin
+              </p>
+              <h2 class="text-lg sm:text-xl font-semibold text-slate-900">
+                Kelola Spot kampuspot
+              </h2>
+              <p id="adminInfo" class="text-xs sm:text-sm text-slate-500 mt-1">
+                Login sebagai <span id="adminEmail" class="font-medium"></span>
+              </p>
+            </div>
+            <div class="flex items-center gap-2">
+              <p id="spotsCountAdmin" class="text-xs text-slate-500">
+                0 spot terdaftar.
+              </p>
+              <button
+                id="btnLogout"
+                class="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs text-slate-700 hover:border-slate-300"
+              >
+                Keluar
+              </button>
+            </div>
+          </div>
+
+          <!-- Grid: tabel + form -->
+          <div class="grid lg:grid-cols-5 gap-5 lg:gap-6 items-start">
+            <!-- TABEL SPOT -->
+            <div class="lg:col-span-3 space-y-3">
+              <div class="flex items-center justify-between">
+                <p class="text-sm font-semibold text-slate-800">Daftar Spot</p>
+              </div>
+              <div
+                class="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden"
+              >
+                <div class="max-h-[420px] overflow-auto">
+                  <table class="min-w-full text-xs sm:text-sm">
+                    <thead class="bg-slate-50/80 border-b border-slate-100">
+                      <tr>
+                        <th
+                          class="px-3 py-2 text-left font-medium text-slate-500"
+                        >
+                          Nama
+                        </th>
+                        <th
+                          class="px-3 py-2 text-left font-medium text-slate-500"
+                        >
+                          Kategori
+                        </th>
+                        <th
+                          class="px-3 py-2 text-left font-medium text-slate-500"
+                        >
+                          Jarak
+                        </th>
+                        <th
+                          class="px-3 py-2 text-left font-medium text-slate-500"
+                        >
+                          Featured
+                        </th>
+                        <th
+                          class="px-3 py-2 text-right font-medium text-slate-500"
+                        >
+                          Aksi
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody id="spotsTableBody">
+                      <!-- rows via JS -->
+                    </tbody>
+                  </table>
+                </div>
+                <div
+                  class="border-t border-slate-100 px-3 py-2 text-[11px] text-slate-500"
+                >
+                  Data diambil realtime dari koleksi
+                  <code
+                    class="bg-slate-50 px-1.5 py-0.5 rounded-md border border-slate-200"
+                    >spots</code
+                  >
+                  di Firestore.
+                </div>
+              </div>
+            </div>
+
+            <!-- FORM SPOT -->
+            <div class="lg:col-span-2">
+              <div
+                class="bg-white rounded-3xl border border-slate-100 shadow-sm p-4 sm:p-5 space-y-4"
+              >
+                <div class="flex items-center justify-between">
+                  <div>
+                    <p class="text-sm font-semibold text-slate-800">
+                      Form Spot
+                    </p>
+                    <p id="formModeText" class="text-[11px] text-slate-500">
+                      Mode: tambah spot baru
+                    </p>
+                  </div>
+                  <button
+                    id="btnResetForm"
+                    class="text-[11px] text-slate-500 hover:text-slate-700"
+                    type="button"
+                  >
+                    Reset
+                  </button>
+                </div>
+
+                <form id="spotForm" class="space-y-3">
+                  <!-- hidden id -->
+                  <input type="hidden" id="spotId" />
+
+                  <div class="space-y-1">
+                    <label
+                      for="spotName"
+                      class="text-xs font-medium text-slate-700"
+                      >Nama Spot</label
+                    >
+                    <input
+                      id="spotName"
+                      type="text"
+                      required
+                      class="w-full rounded-2xl border border-slate-200 bg-slate-50/60 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-kampuspot-500/70 focus:border-kampuspot-500"
+                      placeholder="Contoh: Kopi Kalimalang Corner"
+                    />
+                  </div>
+
+                  <div class="grid grid-cols-2 gap-3">
+                    <div class="space-y-1">
+                      <label
+                        for="spotCategory"
+                        class="text-xs font-medium text-slate-700"
+                        >Kategori</label
+                      >
+                      <select
+                        id="spotCategory"
+                        required
+                        class="w-full rounded-2xl border border-slate-200 bg-slate-50/60 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-kampuspot-500/70 focus:border-kampuspot-500"
+                      >
+                        <option value="">Pilih kategori</option>
+                        <option value="Makanan">Makanan</option>
+                        <option value="Kafe">Kafe</option>
+                        <option value="Belajar">Belajar</option>
+                        <option value="Hiburan">Hiburan</option>
+                      </select>
+                    </div>
+                    <div class="space-y-1">
+                      <label
+                        for="spotDistance"
+                        class="text-xs font-medium text-slate-700"
+                        >Jarak (meter)</label
+                      >
+                      <input
+                        id="spotDistance"
+                        type="number"
+                        min="0"
+                        step="10"
+                        required
+                        class="w-full rounded-2xl border border-slate-200 bg-slate-50/60 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-kampuspot-500/70 focus:border-kampuspot-500"
+                        placeholder="Contoh: 350"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="space-y-1">
+                    <label
+                      for="shortDescription"
+                      class="text-xs font-medium text-slate-700"
+                      >Deskripsi singkat</label
+                    >
+                    <textarea
+                      id="shortDescription"
+                      required
+                      rows="2"
+                      class="w-full rounded-2xl border border-slate-200 bg-slate-50/60 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-kampuspot-500/70 focus:border-kampuspot-500"
+                      placeholder="Ringkasan singkat (akan tampil di card)."
+                    ></textarea>
+                  </div>
+
+                  <div class="space-y-1">
+                    <label
+                      for="fullDescription"
+                      class="text-xs font-medium text-slate-700"
+                      >Deskripsi lengkap (opsional)</label
+                    >
+                    <textarea
+                      id="fullDescription"
+                      rows="3"
+                      class="w-full rounded-2xl border border-slate-200 bg-slate-50/60 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-kampuspot-500/70 focus:border-kampuspot-500"
+                      placeholder="Detail lebih lengkap: suasana, fasilitas, jam ramai, dll."
+                    ></textarea>
+                  </div>
+
+                  <div class="space-y-1">
+                    <label
+                      for="imageUrl"
+                      class="text-xs font-medium text-slate-700"
+                      >URL Gambar</label
+                    >
+                    <input
+                      id="imageUrl"
+                      type="url"
+                      required
+                      class="w-full rounded-2xl border border-slate-200 bg-slate-50/60 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-kampuspot-500/70 focus:border-kampuspot-500"
+                      placeholder="https://..."
+                    />
+                    <p class="text-[11px] text-slate-400">
+                      Untuk awal bisa pakai URL dari Unsplash/Pexels. Nanti bisa
+                      di-upgrade pakai Firebase Storage.
+                    </p>
+                  </div>
+
+                  <div class="space-y-1">
+                    <label
+                      for="locationText"
+                      class="text-xs font-medium text-slate-700"
+                      >Lokasi (teks)</label
+                    >
+                    <input
+                      id="locationText"
+                      type="text"
+                      class="w-full rounded-2xl border border-slate-200 bg-slate-50/60 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-kampuspot-500/70 focus:border-kampuspot-500"
+                      placeholder="Contoh: Kalimalang, dekat Kampus E"
+                    />
+                  </div>
+
+                  <div class="flex items-center justify-between pt-1">
+                    <label
+                      class="inline-flex items-center gap-2 text-xs text-slate-700"
+                    >
+                      <input
+                        id="isFeatured"
+                        type="checkbox"
+                        class="rounded border-slate-300 text-kampuspot-500 focus:ring-kampuspot-500"
+                      />
+                      <span>Jadikan rekomendasi hari ini (featured)</span>
+                    </label>
+                  </div>
+
+                  <div class="pt-1 flex items-center justify-between gap-3">
+                    <button
+                      id="submitSpotBtn"
+                      type="submit"
+                      class="inline-flex items-center justify-center gap-2 rounded-2xl bg-kampuspot-500 text-white text-sm font-medium px-4 py-2.5 hover:bg-kampuspot-600 transition shadow-sm"
+                    >
+                      Simpan Spot
+                    </button>
+                    <p class="text-[11px] text-slate-400">
+                      Perubahan tampil realtime di halaman Explore & Swipe
+                      (setelah kita sambungkan Firestore di step berikutnya).
+                    </p>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="border-t border-slate-100 bg-white">
+      <div
+        class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-4 text-[11px] text-slate-500 flex items-center justify-between gap-3"
+      >
+        <p>© <span id="footerYear"></span> kampuspot Admin.</p>
+      </div>
+    </footer>
+
+    <!-- Script admin (module) -->
+    <script type="module" src="./js/admin.js"></script>
+    <script>
+      // set tahun footer
+      document.getElementById("footerYear").textContent =
+        new Date().getFullYear();
+    </script>
+  </body>
+</html>
