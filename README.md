@@ -68,7 +68,7 @@ KAMPUSPOT/
 │ └── firebase.json
 │
 └── README.md
-
+```
 ---
 
 ## 🔥 Struktur Database Firestore
@@ -104,27 +104,25 @@ Setiap dokumen merepresentasikan satu spot.
 
 ### 1️⃣ Clone Repository
 ```bash
-git clone https://github.com/username/kampuspot.git
+git clone https://github.com/FFebriannn/kampuspot.git
 cd kampuspot
-2️⃣ Konfigurasi Firebase
+```
+
+## 2️⃣ Konfigurasi Firebase
 Buat project di Firebase Console
-
 Aktifkan:
+* Firestore Database
+* Authentication (Email/Password)
+* Salin konfigurasi Firebase ke file firebase-config.js
 
-Firestore Database
-
-Authentication (Email/Password)
-
-Salin konfigurasi Firebase ke file firebase-config.js
-
-3️⃣ Jalankan Aplikasi
+## 3️⃣ Jalankan Aplikasi
 Karena aplikasi ini bersifat statis:
 
 Gunakan Live Server
 
 Atau buka langsung index.html melalui browser
 
-🌍 Deployment ke Firebase Hosting
+## 🌍 Deployment ke Firebase Hosting
 bash
 Copy code
 firebase login
@@ -132,29 +130,29 @@ firebase init hosting
 firebase deploy
 Pastikan folder publik diarahkan ke folder public/.
 
-🧠 Alur Kerja Aplikasi
-Admin login melalui halaman Admin Panel
+## 🧠 Alur Kerja Aplikasi
+* Admin login melalui halaman Admin Panel
 
-Admin mengelola data spot
+* Admin mengelola data spot
 
-Data disimpan di Firestore
+* Data disimpan di Firestore
 
-Halaman Explore dan Swipe ter-update secara real time
+* Halaman Explore dan Swipe ter-update secara real time
 
-User menjelajahi spot melalui Explore atau Swipe
+* User menjelajahi spot melalui Explore atau Swipe
 
-Interaksi swipe disimpan di Local Storage
+* Interaksi swipe disimpan di Local Storage
 
-📌 Use Case
-Mahasiswa mencari tempat makan, nongkrong, dan belajar
+## 📌 Use Case
+- Mahasiswa mencari tempat makan, nongkrong, dan belajar
 
-Admin mengelola rekomendasi spot sekitar kampus
+- Admin mengelola rekomendasi spot sekitar kampus
 
-Eksplorasi cepat menggunakan sistem swipe
+- Eksplorasi cepat menggunakan sistem swipe
 
-📄 Lisensi
+## 📄 Lisensi
 Proyek ini menggunakan MIT License dan bebas digunakan untuk pembelajaran.
 
-👨‍💻 Author
+## 👨‍💻 Author
 KAMPUSPOT
 Dibuat sebagai proyek pembelajaran pengembangan web berbasis Firebase.
