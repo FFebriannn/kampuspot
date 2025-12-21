@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>kampuspot - Temukan Spot Terbaik di Sekitar Kampus</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ["Montserrat", "Arial", "sans-serif"] },
+          colors: {
+            kampuspot: {
+              50: "#F0FDF4",
+              100: "#DCFCE7",
+              500: "#22C55E",
+              600: "#16A34A",
+            },
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- Global Styles -->
+  <link rel="stylesheet" href="./assets/css/styles.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" />
+</head>
+
+<body class="font-sans bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
+
+<!-- ================= NAVBAR ================= -->
+<header class="sticky top-0 z-30 bg-white/90 backdrop-blur border-b border-slate-100">
+  <nav class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
+
+    <!-- Logo -->
+    <a href="index.html" class="flex items-center gap-2">
+      <div class="h-10 w-10 rounded-2xl overflow-hidden">
+        <img src="logo.png" alt="Logo Kampuspot" class="h-full w-full object-cover" />
+      </div>
+      <div class="flex flex-col leading-tight">
+        <span class="font-semibold text-slate-900">kampuspot</span>
+        <span class="text-[11px] text-slate-500">Temukan spot favorit kamu</span>
+      </div>
+    </a>
+
+    <!-- Desktop Menu -->
+    <div class="hidden md:flex items-center gap-6 text-sm">
+      <a href="index.html" class="font-medium text-slate-800">Home</a>
+      <a href="#explore-section" class="text-slate-500 hover:text-slate-800 transition">Explore</a>
+      <a href="admin.html" class="text-slate-500 hover:text-slate-800 transition">Admin</a>
+    </div>
+
+    <!-- Mobile Button -->
+    <button id="navToggle" class="md:hidden h-9 w-9 rounded-xl border border-slate-200 bg-white text-slate-700">
+      <i class="ri-menu-line"></i>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobileNav" class="md:hidden hidden border-t border-slate-100 bg-white">
+    <div class="px-4 py-2 flex flex-col gap-2 text-sm">
+      <a href="index.html" class="py-2 font-medium">Home</a>
+      <a href="#explore-section" class="py-2 text-slate-600">Explore</a>
+      <a href="admin.html" class="py-2 text-slate-600">Panel Admin</a>
+    </div>
+  </div>
+</header>
+
+<!-- ================= MAIN ================= -->
+<main class="flex-1">
+
+<!-- Hero -->
+<section class="bg-gradient-to-b from-kampuspot-50 to-slate-50/40">
+  <div class="max-w-6xl mx-auto px-4 py-10 grid lg:grid-cols-2 gap-10 items-center">
+
+    <div class="space-y-6">
+      <span class="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1 text-xs text-kampuspot-600 border">
+        <i class="ri-map-pin-2-line"></i> Pilihan spot terpilih
+      </span>
+
+      <h1 class="text-4xl font-bold text-slate-900">
+        Cari tempat terbaik
+        <span class="text-kampuspot-600">untuk makan, nongkrong, dan belajar</span>
+        dekat kampus Gunadarma.
+      </h1>
+
+      <p class="text-slate-600 max-w-xl">
+        kampuspot membantu mahasiswa menemukan lokasi favorit dari warung ekonomis
+        hingga kafe nyaman untuk nugas.
+      </p>
+
+      <div class="flex flex-wrap gap-3">
+        <button id="btnHeroExplore" class="rounded-full bg-slate-900 text-white px-5 py-2.5 text-sm">
+          Mulai Explore <i class="ri-search-line"></i>
+        </button>
+
+        <a href="admin.html" class="rounded-full border px-5 py-2.5 text-sm text-slate-700 bg-white">
+          Kelola Spot (Admin) <i class="ri-settings-3-line"></i>
+        </a>
+      </div>
+    </div>
+
+    <img
+      src="https://tempatwisataseru.com/wp-content/uploads/2023/09/Sudutsatu-Cafe-Emillia_-NF.jpg"
+      alt="Spot sekitar kampus"
+      class="rounded-3xl shadow-xl border object-cover"
+    />
+  </div>
+</section>
+
+<!-- Explore -->
+<section id="explore-section" class="py-10 border-t bg-slate-50/60">
+  <div class="max-w-6xl mx-auto px-4 space-y-8">
+
+    <h2 class="text-2xl font-semibold">Jelajahi spot di sekitar kampus</h2>
+
+    <!-- Category -->
+    <div class="flex flex-wrap gap-2">
+      <button class="category-chip category-chip--active" data-category="All">Semua</button>
+      <button class="category-chip" data-category="Makanan">Makanan</button>
+      <button class="category-chip" data-category="Kafe">Kafe</button>
+      <button class="category-chip" data-category="Belajar">Belajar</button>
+      <button class="category-chip" data-category="Hiburan">Hiburan</button>
+    </div>
+
+    <!-- Featured -->
+    <div>
+      <h3 class="text-sm font-semibold mb-3">Pilihan terbaik hari ini</h3>
+      <div id="featuredSpots" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+    </div>
+
+    <!-- All -->
+    <div>
+      <p id="spotsCountText" class="text-xs text-slate-500 mb-2">Menampilkan 0 spot</p>
+      <div id="spotsList" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+      <p id="emptyState" class="hidden text-center text-sm text-slate-500 py-10">
+        Belum ada spot untuk kategori ini.
+      </p>
+    </div>
+
+  </div>
+</section>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="border-t bg-white text-xs text-slate-500 py-5 text-center">
+  © <span id="footerYear"></span> kampuspot. Dibuat untuk mahasiswa Gunadarma.
+</footer>
+
+<!-- ================= SCRIPT ================= -->
+<script type="module" src="./js/main.js"></script>
+
+</body>
+</html>

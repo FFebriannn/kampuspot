@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel - kampuspot</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ["Montserrat", "Arial", "sans-serif"] },
+          colors: {
+            kampuspot: {
+              50: "#F0FDF4",
+              100: "#DCFCE7",
+              500: "#22C55E",
+              600: "#16A34A",
+            },
+          },
+        },
+      },
+    };
+  </script>
+
+  <link rel="stylesheet" href="./assets/css/styles.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" />
+</head>
+
+<body class="font-sans bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+<!-- HEADER -->
+<header class="sticky top-0 z-20 bg-white/90 backdrop-blur border-b border-slate-100">
+  <div class="mx-auto max-w-5xl px-4 py-3 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-2">
+      <div class="h-10 w-10 rounded-2xl overflow-hidden">
+        <img src="logo.png" class="h-full w-full object-cover" />
+      </div>
+      <div>
+        <p class="font-semibold">kampuspot Admin</p>
+        <p class="text-[11px] text-slate-500">Kelola spot sekitar kampus</p>
+      </div>
+    </a>
+    <a href="index.html" class="text-sm text-slate-500 hover:text-slate-800">Home</a>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main class="flex-1">
+  <div class="mx-auto max-w-5xl px-4 py-6 space-y-6">
+
+    <div id="adminMessage" class="hidden rounded-2xl border px-3.5 py-2.5 text-sm"></div>
+
+    <!-- LOGIN -->
+    <section id="loginSection" class="flex justify-center py-10">
+      <div class="w-full max-w-md bg-white rounded-3xl border shadow-lg p-6 space-y-4">
+        <h1 class="text-xl font-semibold">Login Admin</h1>
+
+        <form id="loginForm" class="space-y-3">
+          <input id="loginEmail" type="email" required placeholder="Email"
+            class="w-full rounded-2xl border bg-slate-50 px-3 py-2 text-sm" />
+          <input id="loginPassword" type="password" required placeholder="Password"
+            class="w-full rounded-2xl border bg-slate-50 px-3 py-2 text-sm" />
+          <p id="loginError" class="hidden text-xs text-rose-500"></p>
+
+          <button type="submit"
+            class="w-full rounded-2xl bg-slate-900 text-white py-2.5 text-sm">
+            Masuk Admin
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ADMIN -->
+    <section id="adminSection" class="hidden space-y-6">
+
+      <div class="flex justify-between items-center">
+        <div>
+          <p class="text-xs uppercase text-slate-500 tracking-widest">Panel Admin</p>
+          <h2 class="text-xl font-semibold">Kelola Spot</h2>
+          <p class="text-sm text-slate-500">
+            Login sebagai <span id="adminEmail" class="font-medium"></span>
+          </p>
+        </div>
+        <div class="flex items-center gap-3">
+          <p id="spotsCountAdmin" class="text-xs text-slate-500">0 spot</p>
+          <button id="btnLogout"
+            class="rounded-full border px-3 py-1.5 text-xs">
+            Keluar
+          </button>
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-5 gap-6">
+
+        <!-- TABLE (SCROLLABLE) -->
+        <div class="lg:col-span-3 bg-white rounded-3xl border shadow-sm overflow-hidden">
+          <div class="max-h-[420px] overflow-y-auto">
+            <table class="min-w-full text-sm">
+              <thead class="bg-slate-50 border-b sticky top-0 z-10">
+                <tr>
+                  <th class="px-3 py-2 text-left text-slate-500">Nama</th>
+                  <th class="px-3 py-2 text-left text-slate-500">Kategori</th>
+                  <th class="px-3 py-2 text-left text-slate-500">Jarak</th>
+                  <th class="px-3 py-2 text-left text-slate-500">Featured</th>
+                  <th class="px-3 py-2 text-right text-slate-500">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="spotsTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- FORM -->
+        <div class="lg:col-span-2 bg-white rounded-3xl border shadow-sm p-5">
+          <p id="formModeText" class="text-xs text-slate-500 mb-2">
+            Mode: tambah spot baru
+          </p>
+
+          <form id="spotForm" class="space-y-3">
+            <input type="hidden" id="spotId" />
+
+            <input id="spotName" required placeholder="Nama Spot"
+              class="w-full rounded-2xl border bg-slate-50 px-3 py-2 text-sm" />
+
+            <select id="spotCategory" required
+              class="w-full rounded-2xl border bg-slate-50 px-3 py-2 text-sm">
+              <option value="">Kategori</option>
+              <option>Makanan</option>
+              <option>Kafe</option>
+              <option>Belajar</option>
+              <option>Hiburan</option>
+            </select>
+
+            <input id="spotDistance" type="number" required placeholder="Jarak (meter)"
+              class="w-full rounded-2xl border bg-slate-50 px-3 py-2 text-sm" />
+
+            <textarea id="shortDescription" rows="2" required
+              class="w-full rounded-2xl border bg-slate-50 px-3 py-2 text-sm"
+              placeholder="Deskripsi singkat"></textarea>
+
+            <input id="imageUrl" type="url" required placeholder="URL Gambar"
+              class="w-full rounded-2xl border bg-slate-50 px-3 py-2 text-sm" />
+
+            <input id="locationText" placeholder="Lokasi"
+              class="w-full rounded-2xl border bg-slate-50 px-3 py-2 text-sm" />
+
+            <label class="flex items-center gap-2 text-xs">
+              <input id="isFeatured" type="checkbox" />
+              Jadikan featured
+            </label>
+
+            <button id="submitSpotBtn" type="submit"
+              class="w-full rounded-2xl bg-kampuspot-500 text-white py-2.5 text-sm">
+              Simpan Spot
+            </button>
+
+            <button id="btnResetForm" type="button"
+              class="w-full rounded-2xl border py-2 text-xs">
+              Reset Form
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer class="border-t bg-white text-center text-xs text-slate-500 py-4">
+  © <span id="footerYear"></span> kampuspot Admin
+</footer>
+
+<script type="module" src="./js/admin.js"></script>
+<script>
+  document.getElementById("footerYear").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
