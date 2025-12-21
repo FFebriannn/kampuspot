@@ -16,7 +16,7 @@ Aplikasi web berbasis Firebase untuk membantu mahasiswa menemukan tempat makan, 
 ### 🔐 Admin Panel
 - Login admin menggunakan Firebase Authentication
 - CRUD data spot (Tambah, Edit, Hapus)
-- Update data real-time ke halaman Explore dan Swipe
+- Update data real-time ke halaman Explore 
 - Penandaan spot unggulan (featured)
 
 ### ⚡ Real-time Database
@@ -87,7 +87,7 @@ Setiap dokumen merepresentasikan satu spot.
 
 - Menggunakan **Firebase Authentication (Email & Password)**
 - Halaman admin hanya dapat diakses oleh akun admin
-- Pengguna umum hanya dapat mengakses Explore dan Swipe
+- Pengguna umum hanya dapat mengakses Explore
 
 ---
 
