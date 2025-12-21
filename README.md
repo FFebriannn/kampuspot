@@ -13,13 +13,6 @@ Aplikasi web berbasis Firebase untuk membantu mahasiswa menemukan tempat makan, 
 - Spot unggulan (featured)
 - Detail spot menggunakan modal tanpa reload halaman
 
-### ❤️ Swipe Mode
-- Interaksi cepat dengan sistem swipe
-- Aksi Skip, Like, dan Bookmark
-- Statistik interaksi pengguna
-- Navigasi menggunakan tombol dan keyboard
-- Penyimpanan interaksi menggunakan Local Storage
-
 ### 🔐 Admin Panel
 - Login admin menggunakan Firebase Authentication
 - CRUD data spot (Tambah, Edit, Hapus)
@@ -58,11 +51,9 @@ KAMPUSPOT/
 │ ├── js/
 │ │ ├── firebase-config.js
 │ │ ├── main.js
-│ │ ├── swipe.js
 │ │ └── admin.js
 │ │
 │ ├── index.html
-│ ├── swipe.html
 │ ├── admin.html
 │ ├── logo.png
 │ └── firebase.json
@@ -137,18 +128,14 @@ Pastikan folder publik diarahkan ke folder public/.
 
 * Data disimpan di Firestore
 
-* Halaman Explore dan Swipe ter-update secara real time
+* Halaman Explore ter-update secara real time
 
-* User menjelajahi spot melalui Explore atau Swipe
-
-* Interaksi swipe disimpan di Local Storage
+* User menjelajahi spot melalui Explore 
 
 ## 📌 Use Case
 - Mahasiswa mencari tempat makan, nongkrong, dan belajar
 
 - Admin mengelola rekomendasi spot sekitar kampus
-
-- Eksplorasi cepat menggunakan sistem swipe
 
 ## 📄 Lisensi
 Proyek ini menggunakan MIT License dan bebas digunakan untuk pembelajaran.
